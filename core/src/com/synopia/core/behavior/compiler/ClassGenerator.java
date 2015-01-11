@@ -35,12 +35,12 @@ public class ClassGenerator extends ClassVisitor {
         gen.endMethod();
     }
 
-    public String generateField(Type type, Object init) {
+    public String generateField(Type type) {
         String name = "field" + fieldCount;
         fieldCount++;
         fieldTypes.put(name, type);
 
-        visitField(Opcodes.ACC_PUBLIC, name, type.getDescriptor(), null, init);
+        visitField(Opcodes.ACC_PUBLIC, name, type.getDescriptor(), null, null);
         return name;
     }
 

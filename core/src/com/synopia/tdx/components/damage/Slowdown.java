@@ -33,7 +33,6 @@ public class Slowdown implements Action<EntityActor> {
     public void construct(EntityActor actor) {
         mc.get(actor.getEntity()).maxSpeed *= factor;
         logger.debug("{} slowed down by {}", actor.getEntity(), factor);
-        actor.setValue(id, 0f);
     }
 
     @Override
@@ -43,10 +42,7 @@ public class Slowdown implements Action<EntityActor> {
 
     @Override
     public BehaviorState modify(EntityActor actor, BehaviorState result) {
-        float time = actor.getValue(id);
-        time += actor.getDelta();
-        actor.setValue(id, time);
-        return time < duration ? BehaviorState.RUNNING : BehaviorState.SUCCESS;
+        return BehaviorState.SUCCESS;
     }
 
     @Override

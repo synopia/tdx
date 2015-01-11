@@ -56,7 +56,14 @@ public class SelectorNode extends CompositeNode {
     @Override
     public void assembleSetup(ClassGenerator gen) {
         super.assembleSetup(gen);
-        reentry = gen.generateField(Type.INT_TYPE, -1);
+        reentry = gen.generateField(Type.INT_TYPE);
+    }
+
+    @Override
+    public void assembleConstruct(MethodGenerator gen) {
+        gen.loadThis();
+        gen.push(-1);
+        gen.storeField(reentry);
     }
 
     @Override

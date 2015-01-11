@@ -58,7 +58,7 @@ public class DynamicSelectorNode extends CompositeNode {
         }
         byteFields = new String[bytes];
         for (int i = 0; i < bytes; i++) {
-            byteFields[i] = gen.generateField(Type.BYTE_TYPE, 0);
+            byteFields[i] = gen.generateField(Type.BYTE_TYPE);
         }
     }
 

@@ -52,6 +52,7 @@ public class EffectSystem extends IteratingSystem {
             EntityActor actor = new EntityActor(target);
             effectComponent.tree.setActor(actor);
             effectComponent.actor = actor;
+            logger.debug("Effect {} created behavior tree for {}", entity, target);
         }
 
         effectComponent.actor.setDelta(deltaTime);
@@ -59,6 +60,7 @@ public class EffectSystem extends IteratingSystem {
         BehaviorState result = effectComponent.tree.step();
 
         if (result != BehaviorState.RUNNING || hm.get(target).hitPoints <= 0) {
+            logger.debug("Effect {} finished", entity);
             engine.removeEntity(entity);
         }
     }

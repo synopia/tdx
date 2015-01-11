@@ -39,14 +39,14 @@
     },
     "weapon" : {
       "range" : 7,
-      "cooldown" : 0.9,
+      "cooldown": 10,
       "projectile" : {
         "type" : "rocket",
         "maxSpeed" : 35,
         "accel" : 35,
         "effect" : {
           "start" : {
-            "sequence": [
+            "parallel": [
               {
                 "direct": {
                   "baseDamage": 30,
@@ -56,7 +56,11 @@
               },
               {
                 "slowdown": {
-                  "factor": 0.5,
+                  "factor": 0.5
+                }
+              },
+              {
+                "delay": {
                   "duration": 4
                 }
               }
@@ -79,18 +83,34 @@
     },
     "weapon" : {
       "range" : 10,
-      "cooldown" : 2,
+      "cooldown": 0.9,
       "projectile" : {
         "type" : "rocket",
-        "maxSpeed" : 7,
-        "accel" : 7,
+        "maxSpeed": 35,
+        "accel": 35,
         "effect" : {
           "start": {
-            "direct": {
-              "baseDamage": 100,
-              "diceDamage": "2D50",
-              "damageType": "pierce"
-            }
+            "sequence": [
+              {
+                "direct": {
+                  "baseDamage": 10,
+                  "diceDamage": "2D5",
+                  "damageType": "pierce"
+                }
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "direct": {
+                  "baseDamage": 5,
+                  "diceDamage": "2D2",
+                  "damageType": "pierce"
+                }
+              }
+            ]
           }
         },
         "particle":{

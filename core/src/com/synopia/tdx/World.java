@@ -15,6 +15,7 @@ import com.synopia.tdx.components.LaserComponent;
 import com.synopia.tdx.components.ProjectileComponent;
 import com.synopia.tdx.components.RocketComponent;
 import com.synopia.tdx.components.damage.Damage;
+import com.synopia.tdx.components.damage.Delay;
 import com.synopia.tdx.components.damage.Slowdown;
 import com.synopia.tdx.gson.GsonWorld;
 import com.synopia.tdx.gson.InheritanceAdapter;
@@ -50,6 +51,7 @@ public class World extends GsonWorld {
         BehaviorTreeBuilder behaviorTreeBuilder = new BehaviorTreeBuilder();
         behaviorTreeBuilder.registerAction("direct", Damage.class);
         behaviorTreeBuilder.registerAction("slowdown", Slowdown.class);
+        behaviorTreeBuilder.registerAction("delay", Delay.class);
         registerGsonAdapter(BehaviorNode.class, behaviorTreeBuilder);
 
     }
