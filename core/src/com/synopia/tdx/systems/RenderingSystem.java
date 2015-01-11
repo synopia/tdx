@@ -23,7 +23,7 @@ import java.util.Comparator;
 public class RenderingSystem extends IteratingSystem {
     public static final float FRUSTUM_WIDTH = 50;
     public static final float FRUSTUM_HEIGHT = 50;
-    public static final float PIXELS_TO_METERS = 1.f/46.f;
+    public static final float PIXELS_TO_METERS = 1.f / 46.f;
 
     @Inject
     private SpriteBatch batch;
@@ -39,17 +39,17 @@ public class RenderingSystem extends IteratingSystem {
     private Matrix4 matrix;
 
     public RenderingSystem() {
-        super(Family.getFor(TransformComponent.class, TextureComponent.class),-1);
+        super(Family.getFor(TransformComponent.class, TextureComponent.class), -1);
         renderQueue = new Array<Entity>();
         comparator = new Comparator<Entity>() {
             @Override
             public int compare(Entity o1, Entity o2) {
-                return (int) Math.signum(transformM.get(o2).pos.z- transformM.get(o1).pos.z);
+                return (int) Math.signum(transformM.get(o2).pos.z - transformM.get(o1).pos.z);
             }
         };
 
         camera = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-        camera.position.set(FRUSTUM_WIDTH/2-0.5f, FRUSTUM_HEIGHT/2-0.5f, 0);
+        camera.position.set(FRUSTUM_WIDTH / 2 - 0.5f, FRUSTUM_HEIGHT / 2 - 0.5f, 0);
         matrix = new Matrix4();
         logger.info("RenderingSystem started");
     }
@@ -68,16 +68,16 @@ public class RenderingSystem extends IteratingSystem {
 
         for (Entity entity : renderQueue) {
             TextureComponent tex = textureM.get(entity);
-            if( tex.region==null ) {
+            if (tex.region == null) {
                 continue;
             }
             TransformComponent t = transformM.get(entity);
             float width = tex.region.getRegionWidth();
             float height = tex.region.getRegionHeight();
-            float originX = width*0.5f;
-            float originY = height*0.5f;
+            float originX = width * 0.5f;
+            float originY = height * 0.5f;
 
-            batch.draw(tex.region, t.pos.x-originX, t.pos.y-originY, originX, originY, width, height, t.scale.x*PIXELS_TO_METERS, t.scale.y*PIXELS_TO_METERS, MathUtils.radiansToDegrees*t.rotation);
+            batch.draw(tex.region, t.pos.x - originX, t.pos.y - originY, originX, originY, width, height, t.scale.x * PIXELS_TO_METERS, t.scale.y * PIXELS_TO_METERS, MathUtils.radiansToDegrees * t.rotation);
         }
 
         batch.end();

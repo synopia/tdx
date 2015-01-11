@@ -54,11 +54,11 @@ public class MapSystem extends EntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        if( mapEntity==null ) {
+        if (mapEntity == null) {
             mapEntity = engine.getEntitiesFor(Family.getFor(MapComponent.class)).first();
             map = mm.get(mapEntity);
         }
-        if( mapEntity!=null ) {
+        if (mapEntity != null) {
             if (map.map == null) {
                 initialize();
             }
@@ -70,7 +70,7 @@ public class MapSystem extends EntitySystem {
         int height = map.data.size();
         int width = map.data.get(0).length();
 
-        map.map = new Entity[width*map.mapScale*height*map.mapScale];
+        map.map = new Entity[width * map.mapScale * height * map.mapScale];
 
         map.width = width * map.mapScale;
         map.height = height * map.mapScale;
@@ -87,10 +87,10 @@ public class MapSystem extends EntitySystem {
                         String blockId = Character.toString(ch);
                         Entity block = world.createEntity(blockId);
 
-                        if( block==null ) {
+                        if (block == null) {
                             block = world.createEntity(" ");
                             WaypointComponent waypoint = wpComponents.get(blockId);
-                            if( waypoint==null ) {
+                            if (waypoint == null) {
                                 waypoint = new WaypointComponent();
                                 waypoint.name = blockId;
                                 wpComponents.put(blockId, waypoint);
@@ -102,9 +102,9 @@ public class MapSystem extends EntitySystem {
 
                         TransformComponent transform = new TransformComponent();
                         block.add(transform);
-                        transform.pos.set(x * map.mapScale + sx, y * map.mapScale+sy, 1);
+                        transform.pos.set(x * map.mapScale + sx, y * map.mapScale + sy, 1);
 
-                        map.map[map.offset(x * map.mapScale+ sx, y * map.mapScale+ sy)] = block;
+                        map.map[map.offset(x * map.mapScale + sx, y * map.mapScale + sy)] = block;
                     }
                 }
             }
@@ -126,14 +126,14 @@ public class MapSystem extends EntitySystem {
 
     public Entity getWaypoint(String name) {
         List<Entity> candidates = waypoints.get(name);
-        if( candidates==null ) {
+        if (candidates == null) {
             return null;
         }
         return candidates.get(random.nextInt(candidates.size()));
     }
 
     public List<BlockPosition> findPath(int sx, int sy, int tx, int ty) {
-        if( pathfinder!=null ) {
+        if (pathfinder != null) {
             boolean found = pathfinder.run(bitMap.offset(tx, ty), bitMap.offset(sx, sy));
             if (found) {
                 List<BlockPosition> path = Lists.newArrayList();
@@ -146,13 +146,13 @@ public class MapSystem extends EntitySystem {
         return null;
     }
 
-    public Entity getBlock(int x, int y){
-        return map.map[map.offset(x,y)];
+    public Entity getBlock(int x, int y) {
+        return map.map[map.offset(x, y)];
     }
 
-    public boolean isPassable(int x, int y){
+    public boolean isPassable(int x, int y) {
         Entity block = getBlock(x, y);
-        if( block!=null ) {
+        if (block != null) {
             return bm.get(block).passable;
         }
         return false;

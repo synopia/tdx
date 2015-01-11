@@ -42,6 +42,6 @@ public class BlockPosition {
 
     @Override
     public String toString() {
-        return "["+x+","+y+"]";
+        return "[" + x + "," + y + "]";
     }
 }

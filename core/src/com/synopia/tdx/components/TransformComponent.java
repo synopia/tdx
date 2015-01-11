@@ -9,6 +9,6 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class TransformComponent extends Component {
     public final Vector3 pos = new Vector3();
-    public final Vector2 scale = new Vector2(1f,1f);
+    public final Vector2 scale = new Vector2(1f, 1f);
     public float rotation;
 }

@@ -13,7 +13,7 @@ public abstract class Benchmark {
             long start = System.nanoTime();
             T result = callable.call();
             long end = System.nanoTime();
-            lastTimeMs = (end-start)/1000;
+            lastTimeMs = (end - start) / 1000;
             return result;
         } catch (Exception e) {
             throw new RuntimeException(e);

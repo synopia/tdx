@@ -10,14 +10,12 @@ import com.synopia.tdx.Benchmark;
 import com.synopia.tdx.BlockPosition;
 import com.synopia.tdx.World;
 import com.synopia.tdx.components.MovementComponent;
-import com.synopia.tdx.components.TextureComponent;
 import com.synopia.tdx.components.TransformComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 /**
  * Created by synopia on 08.01.2015.
@@ -51,31 +49,31 @@ public class MovementSystem extends IteratingSystem {
         MovementComponent movement = mm.get(entity);
         TransformComponent transform = tm.get(entity);
 
-        if( movement.target==null ) {
+        if (movement.target == null) {
             return;
         }
         TransformComponent targetTransform = tm.get(movement.target);
 
-        if( movement.type== MovementComponent.Type.DIRECT ) {
+        if (movement.type == MovementComponent.Type.DIRECT) {
             processDirect(movement, transform, targetTransform.pos.x, targetTransform.pos.y, deltaTime);
-        } else if( movement.type== MovementComponent.Type.PATH ){
-            if( movement.path==null ) {
+        } else if (movement.type == MovementComponent.Type.PATH) {
+            if (movement.path == null) {
                 Vector3 targetPos = targetTransform.pos;
                 movement.path = Benchmark.bench(() -> mapSystem.findPath((int) transform.pos.x, (int) transform.pos.y, (int) targetPos.x, (int) targetPos.y));
                 logger.debug("{} requested path, took {} ms", entity, Benchmark.lastTimeMs);
                 movement.pathPosition = 0;
                 movement.targetReached = true;
-                if( movement.path!=null ) {
+                if (movement.path != null) {
                     BlockPosition target = movement.path.get(0);
                     movement.target = mapSystem.getBlock(target.getX(), target.getY());
 
                 }
             }
             targetTransform = tm.get(movement.target);
-            if( movement.path!=null && movement.pathPosition<movement.path.size()) {
+            if (movement.path != null && movement.pathPosition < movement.path.size()) {
                 processDirect(movement, transform, targetTransform.pos.x, targetTransform.pos.y, deltaTime);
-                if( movement.targetReached ) {
-                    if( movement.pathPosition<movement.path.size()-1 ) {
+                if (movement.targetReached) {
+                    if (movement.pathPosition < movement.path.size() - 1) {
                         movement.pathPosition = getNextPathStep(movement.path, movement.pathPosition);
                         BlockPosition target = movement.path.get(movement.pathPosition);
                         movement.target = mapSystem.getBlock(target.getX(), target.getY());
@@ -90,7 +88,7 @@ public class MovementSystem extends IteratingSystem {
 
     private int getNextPathStep(List<BlockPosition> path, int currentPos) {
         BlockPosition current = path.get(currentPos);
-        while (currentPos<path.size()-1 && losSystem.inSight(current, path.get(currentPos+1))) {
+        while (currentPos < path.size() - 1 && losSystem.inSight(current, path.get(currentPos + 1))) {
             currentPos++;
         }
         return currentPos;
@@ -98,9 +96,9 @@ public class MovementSystem extends IteratingSystem {
 
     private void processDirect(MovementComponent movement, TransformComponent transform, float targetX, float targetY, float deltaTime) {
 
-        Vector2 dist = new Vector2(targetX-transform.pos.x, targetY-transform.pos.y);
+        Vector2 dist = new Vector2(targetX - transform.pos.x, targetY - transform.pos.y);
         float len = dist.len();
-        if(len< REACHED_DIST) {
+        if (len < REACHED_DIST) {
             movement.targetReached = true;
             movement.speed.set(0, 0);
         } else {
@@ -112,7 +110,7 @@ public class MovementSystem extends IteratingSystem {
             }
             float a = currSpeed * currSpeed / len;
 
-            if (a > movement.accel ) {
+            if (a > movement.accel) {
                 // s = a/2 * t*t + v*t -> a = 2*(s-v*t)/t/t;
                 accel.set(dist).sub(movement.speed.cpy().scl(timeToTarget)).scl(2.f / timeToTarget / timeToTarget);
                 movement.breaking = true;

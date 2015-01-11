@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.synopia.tdx.World;
@@ -41,11 +40,11 @@ public class ParticleSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         ParticleComponent particle = pm.get(entity);
-        if( particle.effect==null ) {
+        if (particle.effect == null) {
             particle.effect = world.getParticleEffect(particle.name);
             particle.effect.start();
         }
-        if( particle.effect!=null ) {
+        if (particle.effect != null) {
             TransformComponent transform = tm.get(entity);
 
             matrix4.idt();
@@ -55,7 +54,7 @@ public class ParticleSystem extends IteratingSystem {
 
             particle.effect.draw(spriteBatch, deltaTime);
 
-            if( particle.effect.isComplete() ) {
+            if (particle.effect.isComplete()) {
                 particle.isCompleted = true;
             }
         }

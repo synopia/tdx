@@ -35,20 +35,20 @@ public class WaypointSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         MoveAlongComponent moveAlong = am.get(entity);
-        if( moveAlong.finished ) {
+        if (moveAlong.finished) {
             return;
         }
         MovementComponent movement = mm.get(entity);
-        if( movement.target!=null ) {
-            if( movement.targetReached ) {
+        if (movement.target != null) {
+            if (movement.targetReached) {
                 movement.target = null;
                 moveAlong.current = findNextWaypoint(moveAlong.waypoints, moveAlong.current);
-                moveAlong.finished = moveAlong.current==null;
+                moveAlong.finished = moveAlong.current == null;
                 logger.debug("{} reached waypoint. Next waypoint is {}", entity, moveAlong.current);
             }
         } else {
             movement.target = mapSystem.getWaypoint(moveAlong.current);
-            if( movement.target!=null ) {
+            if (movement.target != null) {
                 logger.debug("Waypoint {} assigned to {}", moveAlong.current, entity);
                 movement.targetReached = false;
             }
@@ -57,11 +57,11 @@ public class WaypointSystem extends IteratingSystem {
 
 
     private String findNextWaypoint(List<String> waypoints, String current) {
-        if( current==null ) {
+        if (current == null) {
             return waypoints.get(0);
         }
-        int index = waypoints.indexOf(current)+1;
-        if( index<waypoints.size() ) {
+        int index = waypoints.indexOf(current) + 1;
+        if (index < waypoints.size()) {
             return waypoints.get(index);
         }
         return null;

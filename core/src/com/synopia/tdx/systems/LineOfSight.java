@@ -8,7 +8,7 @@ import javax.inject.Inject;
 /**
  * Created by synopia on 09.01.2015.
  */
-public class LineOfSight extends EntitySystem{
+public class LineOfSight extends EntitySystem {
     private BlockPosition current;
     @Inject
     private MapSystem map;
@@ -79,6 +79,6 @@ public class LineOfSight extends EntitySystem{
     private boolean isBlocked(int x0, int y0, int sx, int sy) {
         int x = x0 + ((sx - 1) / 2);
         int y = y0 + ((sy - 1) / 2);
-        return !map.isPassable(x,y);
+        return !map.isPassable(x, y);
     }
 }

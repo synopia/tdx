@@ -16,10 +16,11 @@
         "accel" : 35,
         "effect" : {
           "start" : {
-            "type": "direct",
-            "baseDamage": 20,
-            "diceDamage": "1D5",
-            "damageType": "pierce"
+            "direct": {
+              "baseDamage": 20,
+              "diceDamage": "1D5",
+              "damageType": "pierce"
+            }
           }
         },
         "particle":{
@@ -45,18 +46,19 @@
         "accel" : 35,
         "effect" : {
           "start" : {
-            "type": "parallel",
-            "effects": [
+            "sequence": [
               {
-                "type": "direct",
-                "baseDamage": 35,
-                "diceDamage": "1D5",
-                "damageType": "pierce"
+                "direct": {
+                  "baseDamage": 30,
+                  "diceDamage": "1D5",
+                  "damageType": "pierce"
+                }
               },
               {
-                "type": "slowdown",
-                "factor": 0.5,
-                "duration": 4
+                "slowdown": {
+                  "factor": 0.5,
+                  "duration": 4
+                }
               }
             ]
           }
@@ -83,10 +85,13 @@
         "maxSpeed" : 7,
         "accel" : 7,
         "effect" : {
-          "type": "direct",
-          "baseDamage": 100,
-          "diceDamage": "2D50",
-          "damageType": "pierce"
+          "start": {
+            "direct": {
+              "baseDamage": 100,
+              "diceDamage": "2D50",
+              "damageType": "pierce"
+            }
+          }
         },
         "particle":{
           "name" :"explosion"
@@ -110,10 +115,13 @@
         "maxSpeed" : 35,
         "accel" : 35,
         "effect" : {
-          "type": "direct",
-          "baseDamage": 85,
-          "diceDamage": "2D50",
-          "damageType": "pierce"
+          "start": {
+            "direct": {
+              "baseDamage": 85,
+              "diceDamage": "2D50",
+              "damageType": "pierce"
+            }
+          }
         },
         "particle":{
           "name" :"explosion"
@@ -137,16 +145,18 @@
         "maxSpeed" : 15,
         "accel" : 30,
         "effect" : {
-          "type": "direct",
-          "baseDamage": 160,
-          "diceDamage": "2D45",
-          "damageType": "spells"
+          "start": {
+            "direct": {
+              "baseDamage": 160,
+              "diceDamage": "2D45",
+              "damageType": "spells"
+            }
+          }
         },
         "particle":{
           "name" :"explosion"
         }
       }
     }
-
   }
 }

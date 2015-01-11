@@ -8,8 +8,8 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector3;
 import com.synopia.tdx.World;
-import com.synopia.tdx.components.HealthComponent;
 import com.synopia.tdx.components.FireTargetComponent;
+import com.synopia.tdx.components.HealthComponent;
 import com.synopia.tdx.components.TransformComponent;
 import com.synopia.tdx.components.WeaponComponent;
 import org.slf4j.Logger;
@@ -46,21 +46,21 @@ public class WeaponSystem extends IteratingSystem {
         WeaponComponent weapon = wm.get(entity);
         TransformComponent transform = tm.get(entity);
 
-        if( weapon.target!=null ) {
-            if( isValidTarget(weapon, weapon.target, transform.pos)==null ) {
+        if (weapon.target != null) {
+            if (isValidTarget(weapon, weapon.target, transform.pos) == null) {
                 weapon.target = null;
             }
         }
-        if( weapon.target==null ) {
+        if (weapon.target == null) {
             weapon.target = findTargetNearest(weapon, transform.pos);
             if (weapon.target != null) {
                 logger.info("{} found target {}", entity, weapon.target);
             }
         }
-        if( weapon.target!=null && weapon.elapsedTime>=weapon.cooldown ) {
+        if (weapon.target != null && weapon.elapsedTime >= weapon.cooldown) {
             logger.info("{} fires to {}", entity, weapon.target);
             weapon.elapsedTime -= weapon.cooldown;
-            if( weapon.elapsedTime>weapon.cooldown ) {
+            if (weapon.elapsedTime > weapon.cooldown) {
                 weapon.elapsedTime = 0;
             }
             Entity projectile = new Entity();
@@ -81,7 +81,7 @@ public class WeaponSystem extends IteratingSystem {
     private Float isValidTarget(WeaponComponent weapon, Entity target, Vector3 pos) {
         Vector3 dist = tm.get(target).pos.cpy().sub(pos);
         float len = dist.len2();
-        if( hm.get(target).hitPoints > 0 && len <=weapon.range*weapon.range ) {
+        if (hm.get(target).hitPoints > 0 && len <= weapon.range * weapon.range) {
             return len;
         }
         return null;
@@ -94,7 +94,7 @@ public class WeaponSystem extends IteratingSystem {
         for (int i = 0; i < targets.size(); i++) {
             Entity entity = targets.get(i);
             Float dist = isValidTarget(weapon, entity, pos);
-            if (dist!=null && dist< nearestDist) {
+            if (dist != null && dist < nearestDist) {
                 nearestDist = dist;
                 nearest = entity;
             }

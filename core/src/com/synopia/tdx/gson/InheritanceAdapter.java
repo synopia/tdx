@@ -22,14 +22,14 @@ public class InheritanceAdapter<T> implements JsonSerializer<T>, JsonDeserialize
         this.typeMap = typeMap;
     }
 
-    public InheritanceAdapter(Object...args) {
-        if( args.length%2!=0 ) {
+    public InheritanceAdapter(Object... args) {
+        if (args.length % 2 != 0) {
             throw new IllegalArgumentException("Supply pairs of <String,Class>!");
         }
         typeMap = Maps.newHashMap();
-        for (int i = 0; i < args.length/2; i++) {
-            String name = (String) args[i*2];
-            Class type = (Class) args[i*2+1];
+        for (int i = 0; i < args.length / 2; i++) {
+            String name = (String) args[i * 2];
+            Class type = (Class) args[i * 2 + 1];
             typeMap.put(name, type);
         }
     }

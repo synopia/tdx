@@ -5,11 +5,12 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.synopia.core.behavior.BehaviorState;
+import com.synopia.core.behavior.compiler.Assembler;
+import com.synopia.tdx.EntityActor;
 import com.synopia.tdx.components.EffectComponent;
-import com.synopia.tdx.components.damage.Damage;
 import com.synopia.tdx.components.FireTargetComponent;
 import com.synopia.tdx.components.HealthComponent;
-import com.synopia.tdx.components.damage.Effect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,15 +41,24 @@ public class EffectSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         EffectComponent effectComponent = em.get(entity);
-
         Entity target = fm.get(entity).target;
-        if( !effectComponent.started ) {
-            effectComponent.start.bind(this, target);
-        }
-        boolean keep = effectComponent.start.update(this, target, deltaTime);
 
-        if( !keep || hm.get(target).hitPoints<=0) {
-            effectComponent.start.unbind(this, target);
+        if (effectComponent.tree == null) {
+            Assembler asm = new Assembler("Test");
+            asm.generateMethod(effectComponent.start);
+            effectComponent.tree = asm.createInstance();
+            effectComponent.tree.bind(effectComponent.start);
+
+            EntityActor actor = new EntityActor(target);
+            effectComponent.tree.setActor(actor);
+            effectComponent.actor = actor;
+        }
+
+        effectComponent.actor.setDelta(deltaTime);
+
+        BehaviorState result = effectComponent.tree.step();
+
+        if (result != BehaviorState.RUNNING || hm.get(target).hitPoints <= 0) {
             engine.removeEntity(entity);
         }
     }

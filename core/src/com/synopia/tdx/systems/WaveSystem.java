@@ -34,14 +34,14 @@ public class WaveSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         WaveComponent wave = wm.get(entity);
-        if( wave.time>wave.delay ) {
-            if( !wave.spawning ) {
+        if (wave.time > wave.delay) {
+            if (!wave.spawning) {
                 logger.info("Wave {}x {} started", wave.count, wave.unit);
                 wave.spawning = true;
             }
-            if( wave.spawned<wave.count ) {
-                int progress = (int)(wave.count*(wave.time-wave.delay)/wave.duration);
-                int toSpawn = progress-wave.spawned;
+            if (wave.spawned < wave.count) {
+                int progress = (int) (wave.count * (wave.time - wave.delay) / wave.duration);
+                int toSpawn = progress - wave.spawned;
                 for (int i = 0; i < toSpawn; i++) {
                     for (List<String> path : wave.paths) {
                         Entity unit = world.createEntity(wave.unit);
@@ -56,12 +56,12 @@ public class WaveSystem extends IteratingSystem {
                 }
                 wave.spawned += toSpawn;
             } else {
-                if( !wave.allSpawned ) {
+                if (!wave.allSpawned) {
                     logger.info("{} {} spawned in {} s", wave.spawned, wave.unit, wave.duration);
                     wave.allSpawned = true;
                 }
             }
         }
-        wave.time+=deltaTime;
+        wave.time += deltaTime;
     }
 }

@@ -18,6 +18,7 @@ public class MovementComponent extends Component {
         @SerializedName("path")
         PATH
     }
+
     public float maxSpeed;
     public float accel;
     public Type type;

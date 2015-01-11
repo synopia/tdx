@@ -7,8 +7,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -30,7 +28,7 @@ import java.util.List;
 /**
  * Created by synopia on 09.01.2015.
  */
-public class PlugSystem extends IteratingSystem{
+public class PlugSystem extends IteratingSystem {
     @Inject
     private ComponentMapper<PlugComponent> pm;
     @Inject
@@ -68,19 +66,19 @@ public class PlugSystem extends IteratingSystem{
 
     @Override
     public void update(float deltaTime) {
-        if( map==null ) {
+        if (map == null) {
             Entity mapEntity = engine.getEntitiesFor(Family.getFor(MapComponent.class)).get(0);
             map = mm.get(mapEntity);
             mouseSystem.getBlockPositionChanged().add((signal, pos) -> {
-                if (activeEntity != null ) {
+                if (activeEntity != null) {
                     TransformComponent transform;
-                    if( !tm.has(activeEntity) ) {
+                    if (!tm.has(activeEntity)) {
                         transform = new TransformComponent();
                         activeEntity.add(transform);
                     } else {
                         transform = tm.get(activeEntity);
                     }
-                    transform.pos.set(pos.getX(), pos.getY() , -1);
+                    transform.pos.set(pos.getX(), pos.getY(), -1);
 
                     PlugComponent plugComponent = pm.get(activeEntity);
                     int sx = (int) plugComponent.size.x;
@@ -107,7 +105,7 @@ public class PlugSystem extends IteratingSystem{
         plugs.clear();
         super.update(deltaTime);
 
-        if( !plugs.equals(lastPlugs)) {
+        if (!plugs.equals(lastPlugs)) {
             palette.clear();
             for (Entity plug : plugs) {
                 TextButton button = new TextButton(nm.get(plug).internalName, skin);
@@ -131,7 +129,7 @@ public class PlugSystem extends IteratingSystem{
     }
 
     private boolean plug(BlockPosition pos, int sx, int sy, Entity plug) {
-        if( isPlugable(pos, sx, sy) ) {
+        if (isPlugable(pos, sx, sy)) {
             for (int y = 0; y < sy; y++) {
                 for (int x = 0; x < sx; x++) {
                     Entity block = map.getBlockEntity(pos.getX() + x, pos.getY() + y);
@@ -145,22 +143,22 @@ public class PlugSystem extends IteratingSystem{
     }
 
     private boolean isPlugable(BlockPosition pos, int sx, int sy) {
-        if( map==null ) {
+        if (map == null) {
             return false;
         }
         for (int y = 0; y < sy; y++) {
             for (int x = 0; x < sx; x++) {
-                Entity block = map.getBlockEntity(pos.getX()+x, pos.getY()+y);
-                if( block==null ) {
+                Entity block = map.getBlockEntity(pos.getX() + x, pos.getY() + y);
+                if (block == null) {
                     return false;
                 }
 
                 SlotComponent slot = block.getComponent(SlotComponent.class);
-                if( slot==null ) {
+                if (slot == null) {
                     return false;
                 }
 
-                if( slot.plugged!=null ) {
+                if (slot.plugged != null) {
                     return false;
                 }
             }

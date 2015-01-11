@@ -4,13 +4,10 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.google.common.collect.Maps;
 import org.reflections.ReflectionUtils;
-import org.reflections.Reflections;
-import org.reflections.util.FilterBuilder;
 
 import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,7 +17,7 @@ import java.util.Set;
 public class Injector {
     private Map<Class, Object> dependencies = Maps.newHashMap();
 
-    public void add( Class cls, Object obj ) {
+    public void add(Class cls, Object obj) {
         dependencies.put(cls, obj);
     }
 
@@ -40,9 +37,9 @@ public class Injector {
                 type = (Class) ((ParameterizedType) injectableField.getGenericType()).getActualTypeArguments()[0];
                 value = ComponentMapper.getFor((Class<Component>) type);
             }
-            if( value!=null ) {
+            if (value != null) {
                 boolean accessible = injectableField.isAccessible();
-                if( !accessible ) {
+                if (!accessible) {
                     injectableField.setAccessible(true);
                 }
 
@@ -52,7 +49,7 @@ public class Injector {
                     throw new RuntimeException(e);
                 }
 
-                if( !accessible ) {
+                if (!accessible) {
                     injectableField.setAccessible(false);
                 }
             }

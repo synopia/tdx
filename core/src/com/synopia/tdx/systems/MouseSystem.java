@@ -49,18 +49,19 @@ public class MouseSystem extends EntitySystem {
         mouse.add(new TransformComponent());
         engine.addEntity(mouse);
 
-        inputMultiplexer.addProcessor(new InputAdapter(){
-             int button;
+        inputMultiplexer.addProcessor(new InputAdapter() {
+            int button;
+
             @Override
             public boolean scrolled(int amount) {
-                renderingSystem.getCamera().zoom += amount/20.f;
+                renderingSystem.getCamera().zoom += amount / 20.f;
                 return true;
             }
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 mouseMoved(screenX, screenY);
-                if( button==Input.Buttons.LEFT ) {
+                if (button == Input.Buttons.LEFT) {
                     blockPositionClicked.dispatch(lastMouse);
                     return true;
                 }
@@ -70,19 +71,19 @@ public class MouseSystem extends EntitySystem {
 
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
-                if( button==Input.Buttons.RIGHT ) {
+                if (button == Input.Buttons.RIGHT) {
                     renderingSystem.getCamera().translate(-(screenX - lastMouseX) / 5.f, (screenY - lastMouseY) / 5.f);
                 }
                 mouseMoved(screenX, screenY);
-                return button==Input.Buttons.RIGHT;
+                return button == Input.Buttons.RIGHT;
             }
 
             @Override
             public boolean mouseMoved(int x, int y) {
                 Vector3 position = renderingSystem.getCamera().unproject(new Vector3(x, y, 0));
                 tm.get(mouse).pos.set(position);
-                BlockPosition currMouse = new BlockPosition((int)position.x, (int)position.y);
-                if( !currMouse.equals(lastMouse) ) {
+                BlockPosition currMouse = new BlockPosition((int) position.x, (int) position.y);
+                if (!currMouse.equals(lastMouse)) {
                     blockPositionChanged.dispatch(currMouse);
                     lastMouse = currMouse;
                 }

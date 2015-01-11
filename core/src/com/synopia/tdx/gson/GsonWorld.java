@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -18,7 +17,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.synopia.tdx.Injector;
-import com.synopia.tdx.TDGame;
 import com.synopia.tdx.components.NameComponent;
 import org.reflections.Reflections;
 
@@ -28,7 +26,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.sql.Ref;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -85,7 +82,7 @@ public class GsonWorld {
         Entity entity = new Entity();
         engine.addEntity(entity);
         JsonObject prefab = prefabs.get(name);
-        if( prefab==null ) {
+        if (prefab == null) {
             return null;
         }
         for (Map.Entry<String, JsonElement> entry : prefab.entrySet()) {
@@ -117,7 +114,7 @@ public class GsonWorld {
     }
 
     private Gson getGson() {
-        if( gson==null ) {
+        if (gson == null) {
             gson = gsonBuilder.create();
         }
         return gson;
@@ -131,12 +128,12 @@ public class GsonWorld {
         Set<Class<? extends Component>> componentTypes = reflections.getSubTypesOf(Component.class);
         for (Class<? extends Component> componentType : componentTypes) {
             String name = componentType.getCanonicalName().toLowerCase();
-            if(name.endsWith("component")) {
-                name = name.substring(0, name.length()-"component".length());
+            if (name.endsWith("component")) {
+                name = name.substring(0, name.length() - "component".length());
             }
             int index = name.lastIndexOf('.');
-            if( index>=0 ) {
-                name = name.substring(index+1);
+            if (index >= 0) {
+                name = name.substring(index + 1);
             }
             registerComponent(name, componentType);
         }
@@ -147,7 +144,7 @@ public class GsonWorld {
         Set<Class<? extends EntitySystem>> types = reflections.getSubTypesOf(EntitySystem.class);
         for (Class<? extends EntitySystem> system : types) {
             int modifiers = system.getModifiers();
-            if(!Modifier.isAbstract(modifiers)) {
+            if (!Modifier.isAbstract(modifiers)) {
                 try {
                     EntitySystem entitySystem = system.newInstance();
                     injector.add(system, entitySystem);

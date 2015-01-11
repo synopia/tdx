@@ -1,38 +1,58 @@
 package com.synopia.tdx.components.damage;
 
 import com.badlogic.ashley.core.ComponentMapper;
-import com.badlogic.ashley.core.Entity;
+import com.synopia.core.behavior.Action;
+import com.synopia.core.behavior.BehaviorState;
+import com.synopia.tdx.EntityActor;
 import com.synopia.tdx.components.MovementComponent;
-import com.synopia.tdx.systems.EffectSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Created by synopia on 09.01.2015.
  */
-public class Slowdown implements Effect {
+public class Slowdown implements Action<EntityActor> {
     public float factor;
     public float duration;
 
     private ComponentMapper<MovementComponent> mc = ComponentMapper.getFor(MovementComponent.class);
-    private float time;
     private Logger logger = LoggerFactory.getLogger(Slowdown.class);
+    private int id;
 
     @Override
-    public void bind(EffectSystem effectSystem, Entity target) {
-        mc.get(target).maxSpeed *= factor;
-        logger.debug("{} slowed down by {}", target, factor);
+    public int getId() {
+        return id;
     }
 
     @Override
-    public void unbind(EffectSystem effectSystem, Entity target) {
-        logger.debug("{} slowdown over", target);
-        mc.get(target).maxSpeed /= factor;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
-    public boolean update(EffectSystem effectSystem, Entity target, float dt) {
-        time += dt;
-        return time<duration;
+    public void construct(EntityActor actor) {
+        mc.get(actor.getEntity()).maxSpeed *= factor;
+        logger.debug("{} slowed down by {}", actor.getEntity(), factor);
+        actor.setValue(id, 0f);
+    }
+
+    @Override
+    public boolean prune(EntityActor actor) {
+        return false;
+    }
+
+    @Override
+    public BehaviorState modify(EntityActor actor, BehaviorState result) {
+        float time = actor.getValue(id);
+        time += actor.getDelta();
+        actor.setValue(id, time);
+        return time < duration ? BehaviorState.RUNNING : BehaviorState.SUCCESS;
+    }
+
+    @Override
+    public void destruct(EntityActor actor) {
+        logger.debug("{} slowdown finished", actor.getEntity());
+        mc.get(actor.getEntity()).maxSpeed /= factor;
+
     }
 }

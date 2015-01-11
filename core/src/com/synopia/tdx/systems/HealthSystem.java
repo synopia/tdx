@@ -7,7 +7,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
 import com.synopia.tdx.World;
 import com.synopia.tdx.components.HealthComponent;
@@ -44,15 +43,15 @@ public class HealthSystem extends IteratingSystem {
         HealthComponent health = hm.get(entity);
         float width = tex.getRegionWidth();
         float height = tex.getRegionHeight();
-        float originX = width*0.5f;
-        float originY = height*0.5f;
+        float originX = width * 0.5f;
+        float originY = height * 0.5f;
 
-        spriteBatch.draw(tex, t.pos.x-originX, t.pos.y-originY+0.5f, originX, originY, width, height, t.scale.x*RenderingSystem.PIXELS_TO_METERS, t.scale.y*RenderingSystem.PIXELS_TO_METERS,90);
+        spriteBatch.draw(tex, t.pos.x - originX, t.pos.y - originY + 0.5f, originX, originY, width, height, t.scale.x * RenderingSystem.PIXELS_TO_METERS, t.scale.y * RenderingSystem.PIXELS_TO_METERS, 0);
         tex = world.getTexture("healthbarfront");
         width *= health.hitPoints / health.maxHitPoints;
-        spriteBatch.draw(tex, t.pos.x-originX, t.pos.y-originY+0.5f, originX, originY, width, height, t.scale.x*RenderingSystem.PIXELS_TO_METERS, t.scale.y*RenderingSystem.PIXELS_TO_METERS, 90);
+        spriteBatch.draw(tex, t.pos.x - originX, t.pos.y - originY + 0.5f, originX, originY, width, height, t.scale.x * RenderingSystem.PIXELS_TO_METERS, t.scale.y * RenderingSystem.PIXELS_TO_METERS, 0);
 
-        if( health.hitPoints <0 ) {
+        if (health.hitPoints <= 0) {
             engine.removeEntity(entity);
         }
     }
