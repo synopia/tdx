@@ -1,0 +1,97 @@
+{
+  "X" : {
+    "block" : {
+      "passable": false
+    },
+    "slot" : {
+    },
+    "texture" : {
+      "region" : "tile-1-center"
+    }
+  },
+  " " : {
+    "block" : {
+      "passable": true
+    },
+    "texture" : {
+      "region" : "stars2"
+    }
+  },
+  "metroid" : {
+    "map": {
+      "mapScale" : 1,
+      "data": [
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX B XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX                          XXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX 7                      8 XXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX                          XXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXX   XXXX                                                 XXXX",
+        "XXXXXXXXXXX   XXXX a                                             b XXXX",
+        "XXXXXXXXXXX   XXXX                                                 XXXX",
+        "XXXXXXXXXXX   XXXX   XXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX                                   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX d                               e XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXXXXXXXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXXXXXXXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXXXXXXXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXXXXXXXXX   XXXX   XXXX",
+        "                                                     XXXX   XXXX   XXXX",
+        "A                                                  1 XXXX   XXXX   XXXX",
+        "                                                     XXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXX   XXXX",
+        "XXXXXXXXXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXX   XXXX",
+        "XXXX                                                               XXXX",
+        "XXXX 4                             G                             c XXXX",
+        "XXXX                                                               XXXX",
+        "XXXX   XXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXX   XXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXX                                                     ",
+        "XXXX   XXXX   XXXX 9                                                  C",
+        "XXXX   XXXX   XXXX                                                     ",
+        "XXXX   XXXX   XXXXXXXXXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXXXXXXXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXXXXXXXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX   XXXXXXXXXXX   XXXXXX   XXXXXX   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX                                   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX 6                               5 XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXX                                   XXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXX   XXXX   XXXXXXXXXXX",
+        "XXXX   XXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXX   XXXX   XXXXXXXXXXX",
+        "XXXX                                                 XXXX   XXXXXXXXXXX",
+        "XXXX 3                                             2 XXXX   XXXXXXXXXXX",
+        "XXXX                                                 XXXX   XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXX   XXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXX                          XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXX g                      f XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXX                          XXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXX D XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      ]
+    }
+  }
+}

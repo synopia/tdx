@@ -1,0 +1,58 @@
+{
+  "damage" : {
+    "light": {
+      "normal": 1,
+      "pierce": 2,
+      "siege": 1,
+      "magic": 1.25,
+      "chaos": 1,
+      "spells": 1,
+      "hero": 1
+    },
+    "medium": {
+      "normal": 1.5,
+      "pierce": 0.75,
+      "siege": 0.5,
+      "magic": 0.75,
+      "chaos": 1,
+      "spells": 1,
+      "hero": 1
+    },
+    "heavy":{
+      "normal": 1,
+      "pierce": 1,
+      "siege": 1,
+      "magic": 2,
+      "chaos": 1,
+      "spells": 1,
+      "hero": 1
+    },
+    "fort":{
+      "normal": 0.7,
+      "pierce": 0.35,
+      "siege": 1.5,
+      "magic": 0.35,
+      "chaos": 1,
+      "spells": 1,
+      "hero": 1
+    },
+    "hero":{
+      "normal": 1,
+      "pierce": 0.5,
+      "siege": 0.5,
+      "magic": 0.5,
+      "chaos": 1,
+      "spells": 0.7,
+      "hero": 1
+    },
+    "unarmored":{
+      "normal": 1,
+      "pierce": 1.5,
+      "siege": 1.5,
+      "magic": 1,
+      "chaos": 1,
+      "spells": 1,
+      "hero": 1
+    }
+  }
+}

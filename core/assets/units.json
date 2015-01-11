@@ -1,0 +1,20 @@
+{
+  "satyr" : {
+    "texture" : {
+      "region" : "creep-1-1"
+    },
+    "armor" : {
+      "armorType" : "unarmored",
+      "armor" : "1"
+    },
+    "movement" : {
+      "maxSpeed" : 2.7,
+      "accel" : 4,
+      "type" : "path"
+    },
+    "health" :{
+      "hitPoints" : 60,
+      "maxHitPoints" : 60
+    }
+  }
+}

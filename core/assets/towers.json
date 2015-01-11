@@ -1,0 +1,152 @@
+{
+  "guard_tower" : {
+    "texture" : {
+      "region" : "turret-1-1"
+    },
+    "plug" : {
+      "size" : [1,1],
+      "gold" : 6
+    },
+    "weapon" : {
+      "range" : 7,
+      "cooldown" : 0.9,
+      "projectile" : {
+        "type" : "rocket",
+        "maxSpeed" : 35,
+        "accel" : 35,
+        "effect" : {
+          "start" : {
+            "type": "direct",
+            "baseDamage": 20,
+            "diceDamage": "1D5",
+            "damageType": "pierce"
+          }
+        },
+        "particle":{
+          "name" :"explosion"
+        }
+      }
+    }
+  },
+  "frost_tower" : {
+    "texture" : {
+      "region" : "turret-2-1"
+    },
+    "plug" : {
+      "size" : [1,1],
+      "gold": 30
+    },
+    "weapon" : {
+      "range" : 7,
+      "cooldown" : 0.9,
+      "projectile" : {
+        "type" : "rocket",
+        "maxSpeed" : 35,
+        "accel" : 35,
+        "effect" : {
+          "start" : {
+            "type": "parallel",
+            "effects": [
+              {
+                "type": "direct",
+                "baseDamage": 35,
+                "diceDamage": "1D5",
+                "damageType": "pierce"
+              },
+              {
+                "type": "slowdown",
+                "factor": 0.5,
+                "duration": 4
+              }
+            ]
+          }
+        },
+        "particle":{
+          "name" :"explosion"
+        }
+      }
+    }
+  },
+  "lightning_tower" : {
+    "texture" : {
+      "region" : "turret-3-1"
+    },
+    "plug" : {
+      "size" : [1,1],
+      "gold" : 40
+    },
+    "weapon" : {
+      "range" : 10,
+      "cooldown" : 2,
+      "projectile" : {
+        "type" : "rocket",
+        "maxSpeed" : 7,
+        "accel" : 7,
+        "effect" : {
+          "type": "direct",
+          "baseDamage": 100,
+          "diceDamage": "2D50",
+          "damageType": "pierce"
+        },
+        "particle":{
+          "name" :"explosion"
+        }
+      }
+    }
+  },
+  "speed_caster" : {
+    "texture" : {
+      "region" : "turret-4-1"
+    },
+    "plug" : {
+      "size" : [1,1],
+      "gold":50
+    },
+    "weapon" : {
+      "range" : 10,
+      "cooldown" : 0.7,
+      "projectile" : {
+        "type" : "rocket",
+        "maxSpeed" : 35,
+        "accel" : 35,
+        "effect" : {
+          "type": "direct",
+          "baseDamage": 85,
+          "diceDamage": "2D50",
+          "damageType": "pierce"
+        },
+        "particle":{
+          "name" :"explosion"
+        }
+      }
+    }
+  },
+  "hell_caster" : {
+    "texture" : {
+      "region" : "turret-5-1"
+    },
+    "plug" : {
+      "size" : [1,1],
+      "gold":50
+    },
+    "weapon" : {
+      "range" : 10,
+      "cooldown" : 0.8,
+      "projectile" : {
+        "type" : "rocket",
+        "maxSpeed" : 15,
+        "accel" : 30,
+        "effect" : {
+          "type": "direct",
+          "baseDamage": 160,
+          "diceDamage": "2D45",
+          "damageType": "spells"
+        },
+        "particle":{
+          "name" :"explosion"
+        }
+      }
+    }
+
+  }
+}
