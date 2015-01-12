@@ -1,12 +1,13 @@
 package com.synopia.tdx.components.damage;
 
+import com.synopia.core.behavior.BaseAction;
 import com.synopia.core.behavior.BehaviorState;
 import com.synopia.tdx.EntityActor;
 
 /**
  * Created by synopia on 11.01.2015.
  */
-public class Delay extends BaseAction {
+public class Delay extends BaseAction<EntityActor> {
     private float duration;
 
     @Override

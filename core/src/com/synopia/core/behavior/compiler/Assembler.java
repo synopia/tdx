@@ -1,6 +1,8 @@
 package com.synopia.core.behavior.compiler;
 
+import com.synopia.core.behavior.Actor;
 import com.synopia.core.behavior.AssemblingBehaviorNode;
+import com.synopia.core.behavior.BehaviorNode;
 import com.synopia.core.behavior.BehaviorState;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
@@ -22,9 +24,11 @@ public class Assembler {
     private final ClassWriter classWriter;
     private MyClassLoader loader;
     private Class type;
+    private BehaviorNode node;
 
-    public Assembler(String className) {
+    public Assembler(String className, BehaviorNode node) {
         this.className = className;
+        this.node = node;
         classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         generator = new ClassGenerator(classWriter, className);
 
@@ -33,25 +37,30 @@ public class Assembler {
             gen.invokeConstructor(Type.getType(CompiledBehaviorTree.class), Method.getMethod("void <init>()"));
             gen.returnValue();
         });
+
+        generateMethod(node);
     }
 
     public byte[] getBytecode() {
         return classWriter.toByteArray();
     }
 
-    public CompiledBehaviorTree createInstance() {
+    public CompiledBehaviorTree createInstance(Actor actor) {
         if (loader == null) {
             loader = new MyClassLoader(this.getClass().getClassLoader());
             type = loader.defineClass(className, getBytecode());
         }
         try {
-            return (CompiledBehaviorTree) type.newInstance();
+            CompiledBehaviorTree tree = (CompiledBehaviorTree) type.newInstance();
+            tree.bind(node);
+            tree.setActor(actor);
+            return tree;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void generateMethod(AssemblingBehaviorNode node) {
+    protected void generateMethod(AssemblingBehaviorNode node) {
         node.assembleSetup(generator);
         generator.generateMethod("int run(int)", (gen) -> {
             gen.loadArg(0);

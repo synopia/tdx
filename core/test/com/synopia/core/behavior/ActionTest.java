@@ -100,11 +100,8 @@ public class ActionTest {
         builder.registerAction("delay", Delay.class);
         BehaviorNode node = gsonBuilder.create().fromJson("{ sequence: [{delay:{time:1 }}, {x:{}}]}", BehaviorNode.class);
 
-        Assembler asm = new Assembler("Test");
-        asm.generateMethod(node);
-        CompiledBehaviorTree instance = asm.createInstance();
-        instance.setActor(new MyActor());
-        System.out.println(instance.getActor());
+        Assembler asm = new Assembler("Test", node);
+        CompiledBehaviorTree instance = asm.createInstance(new MyActor());
         instance.bind(node);
         for (int i = 0; i < 100; i++) {
             instance.step();

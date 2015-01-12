@@ -7,9 +7,17 @@ public class DecoratorNode extends ActionNode {
     private BehaviorNode child;
 
     @Override
+    public BehaviorNode deepCopy() {
+        DecoratorNode node = new DecoratorNode();
+        node.setAction(action);
+        node.child = child;
+        return node;
+    }
+
+    @Override
     public void construct(Actor actor) {
         if (action != null) {
-            action.construct(null);
+            action.construct(actor);
         }
         child.construct(actor);
     }

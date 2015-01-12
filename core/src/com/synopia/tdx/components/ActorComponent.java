@@ -11,6 +11,5 @@ import com.synopia.tdx.EntityActor;
  */
 public class ActorComponent extends Component {
     public EntityActor actor;
-    public CompiledBehaviorTree tree;
-    public BehaviorTree nodeTree;
+    public BehaviorTree tree;
 }

@@ -1,6 +1,7 @@
 package com.synopia.core.behavior;
 
 import com.google.common.collect.Maps;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -17,12 +18,23 @@ import java.util.Map;
  */
 public class BehaviorTreeBuilder implements JsonDeserializer<BehaviorNode> {
     private Map<String, Class<? extends Action>> actions = Maps.newHashMap();
+    private Map<String, Class<? extends Action>> decorators = Maps.newHashMap();
     private Map<String, BehaviorNode> nodeCache = Maps.newHashMap();
 
     private int nextId = 1;
 
+    public BehaviorNode fromJson(String json) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(BehaviorNode.class, this);
+        return gsonBuilder.create().fromJson(json, BehaviorNode.class);
+    }
+
     public void registerAction(String name, Class<? extends Action> action) {
         actions.put(name, action);
+    }
+
+    public void registerDecorator(String name, Class<? extends Action> action) {
+        decorators.put(name, action);
     }
 
     @Override
@@ -77,6 +89,17 @@ public class BehaviorTreeBuilder implements JsonDeserializer<BehaviorNode> {
                         nextId++;
                     }
                     actionNode.setAction(action);
+                } else if (decorators.containsKey(type)) {
+                    actionNode = new DecoratorNode();
+                    Action action = context.deserialize(json, decorators.get(type));
+                    if (action.getId() == 0) {
+                        action.setId(nextId);
+                        nextId++;
+                    }
+                    JsonElement childJson = json.getAsJsonObject().get("child");
+                    BehaviorNode child = context.deserialize(childJson, BehaviorNode.class);
+                    actionNode.insertChild(0, child);
+                    actionNode.setAction(action);
                 } else {
                     throw new IllegalArgumentException("Unknown behavior node type " + type);
                 }
@@ -105,5 +128,4 @@ public class BehaviorTreeBuilder implements JsonDeserializer<BehaviorNode> {
                 throw new IllegalArgumentException("Unknown behavior node type " + type);
         }
     }
-
 }

@@ -9,6 +9,7 @@ import com.google.common.collect.Maps;
 import com.synopia.core.behavior.BehaviorNode;
 import com.synopia.core.behavior.BehaviorState;
 import com.synopia.core.behavior.BehaviorTree;
+import com.synopia.core.behavior.DefaultBehaviorTree;
 import com.synopia.core.behavior.compiler.Assembler;
 import com.synopia.tdx.EntityActor;
 import com.synopia.tdx.World;
@@ -58,8 +59,7 @@ public class EffectSystem extends IteratingSystem {
         if (effectComponent.treeAssembler == null) {
             Assembler asm = trees.get(effectComponent.start);
             if (asm == null) {
-                asm = new Assembler("Test" + trees.size());
-                asm.generateMethod(effectComponent.start);
+                asm = new Assembler("Test" + trees.size(), effectComponent.start);
                 trees.put(effectComponent.start, asm);
                 logger.debug("Effect {} constructed a behavior tree for {}", entity, target);
             }
@@ -75,7 +75,7 @@ public class EffectSystem extends IteratingSystem {
 //            actorComponent.tree = effectComponent.treeAssembler.createInstance();
 //            actorComponent.tree.bind(effectComponent.start);
 //            actorComponent.tree.setActor(actor);
-            actorComponent.nodeTree = new BehaviorTree(effectComponent.start.deepCopy());
+            actorComponent.tree = new DefaultBehaviorTree(effectComponent.start, actor);
             actorComponent.actor = actor;
             entity.add(actorComponent);
             logger.debug("Effect {} create for {}", entity, target);
@@ -83,8 +83,7 @@ public class EffectSystem extends IteratingSystem {
 
         actorComponent.actor.setDelta(deltaTime);
 
-//        BehaviorState result = actorComponent.tree.step();
-        BehaviorState result = actorComponent.nodeTree.step(actorComponent.actor);
+        BehaviorState result = actorComponent.tree.step();
 
         if (result != BehaviorState.RUNNING || hm.get(target).hitPoints <= 0) {
             logger.debug("Effect {} finished", entity);

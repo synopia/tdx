@@ -1,6 +1,7 @@
 package com.synopia.tdx.components.damage;
 
 import com.badlogic.ashley.core.ComponentMapper;
+import com.synopia.core.behavior.BaseAction;
 import com.synopia.core.behavior.BehaviorState;
 import com.synopia.tdx.EntityActor;
 import com.synopia.tdx.components.MovementComponent;
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by synopia on 09.01.2015.
  */
-public class Slowdown extends BaseAction {
+public class Slowdown extends BaseAction<EntityActor> {
     public float factor;
     public float duration;
 

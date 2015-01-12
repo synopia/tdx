@@ -76,9 +76,8 @@ public class CountTest {
 
     public void assertBT(String tree, List<BehaviorState> result, List<Integer> executed, boolean step) {
         BehaviorNode node = fromJson(tree);
-        Assembler asm = new Assembler("Test");
-        asm.generateMethod(node);
-        CompiledBehaviorTree cbt = asm.createInstance();
+        Assembler asm = new Assembler("Test", node);
+        CompiledBehaviorTree cbt = asm.createInstance(null);
 
         node.construct(null);
         List<BehaviorState> actualStates = Lists.newArrayList();

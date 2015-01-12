@@ -2,6 +2,7 @@ package com.synopia.tdx.components.damage;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.synopia.core.behavior.BaseAction;
 import com.synopia.core.behavior.BehaviorState;
 import com.synopia.tdx.EntityActor;
 import com.synopia.tdx.components.HealthComponent;
@@ -15,7 +16,7 @@ import java.util.Map;
 /**
  * Created by synopia on 12.01.2015.
  */
-public class Aoe extends BaseAction {
+public class Aoe extends BaseAction<EntityActor> {
     private ComponentMapper<HealthComponent> hm = ComponentMapper.getFor(HealthComponent.class);
     private List<Float> ranges;
     private List<Float> factors;

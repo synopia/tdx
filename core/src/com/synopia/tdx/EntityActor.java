@@ -3,17 +3,16 @@ package com.synopia.tdx;
 import com.badlogic.ashley.core.Entity;
 import com.google.common.collect.Maps;
 import com.synopia.core.behavior.Actor;
+import com.synopia.core.behavior.DefaultActor;
 
 import java.util.Map;
 
 /**
  * Created by synopia on 11.01.2015.
  */
-public class EntityActor implements Actor<Entity> {
+public class EntityActor extends DefaultActor<Entity> {
     private final World world;
-    private final Map<Integer, Object> dataMap = Maps.newHashMap();
     private final Entity entity;
-    private float delta;
 
     public EntityActor(World world, Entity entity) {
         this.world = world;
@@ -22,22 +21,6 @@ public class EntityActor implements Actor<Entity> {
 
     public Entity getEntity() {
         return entity;
-    }
-
-    public <T> T getValue(int id) {
-        return (T) dataMap.get(id);
-    }
-
-    public void setValue(int id, Object obj) {
-        dataMap.put(id, obj);
-    }
-
-    public float getDelta() {
-        return delta;
-    }
-
-    public void setDelta(float delta) {
-        this.delta = delta;
     }
 
     public World getWorld() {
