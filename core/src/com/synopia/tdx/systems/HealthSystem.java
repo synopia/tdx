@@ -38,19 +38,20 @@ public class HealthSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        TextureRegion tex = world.getTexture("healthbarback");
-        TransformComponent t = tm.get(entity);
         HealthComponent health = hm.get(entity);
-        float width = tex.getRegionWidth();
-        float height = tex.getRegionHeight();
-        float originX = width * 0.5f;
-        float originY = height * 0.5f;
+        if (spriteBatch != null) {
+            TextureRegion tex = world.getTexture("healthbarback");
+            TransformComponent t = tm.get(entity);
+            float width = tex.getRegionWidth();
+            float height = tex.getRegionHeight();
+            float originX = width * 0.5f;
+            float originY = height * 0.5f;
 
-        spriteBatch.draw(tex, t.pos.x - originX, t.pos.y - originY + 0.5f, originX, originY, width, height, t.scale.x * RenderingSystem.PIXELS_TO_METERS, t.scale.y * RenderingSystem.PIXELS_TO_METERS, 0);
-        tex = world.getTexture("healthbarfront");
-        width *= health.hitPoints / health.maxHitPoints;
-        spriteBatch.draw(tex, t.pos.x - originX, t.pos.y - originY + 0.5f, originX, originY, width, height, t.scale.x * RenderingSystem.PIXELS_TO_METERS, t.scale.y * RenderingSystem.PIXELS_TO_METERS, 0);
-
+            spriteBatch.draw(tex, t.pos.x - originX, t.pos.y - originY + 0.5f, originX, originY, width, height, t.scale.x * RenderingSystem.PIXELS_TO_METERS, t.scale.y * RenderingSystem.PIXELS_TO_METERS, 0);
+            tex = world.getTexture("healthbarfront");
+            width *= health.hitPoints / health.maxHitPoints;
+            spriteBatch.draw(tex, t.pos.x - originX, t.pos.y - originY + 0.5f, originX, originY, width, height, t.scale.x * RenderingSystem.PIXELS_TO_METERS, t.scale.y * RenderingSystem.PIXELS_TO_METERS, 0);
+        }
         if (health.hitPoints <= 0) {
             engine.removeEntity(entity);
         }
@@ -58,9 +59,11 @@ public class HealthSystem extends IteratingSystem {
 
     @Override
     public void update(float deltaTime) {
-        spriteBatch.begin();
-        spriteBatch.setTransformMatrix(matrix4);
-        super.update(deltaTime);
-        spriteBatch.end();
+        if (spriteBatch != null) {
+            spriteBatch.begin();
+            spriteBatch.setTransformMatrix(matrix4);
+            super.update(deltaTime);
+            spriteBatch.end();
+        }
     }
 }

@@ -18,24 +18,33 @@ public class DynamicSelectorNode extends CompositeNode {
     private String[] byteFields;
 
     @Override
-    public void construct() {
+    public BehaviorNode deepCopy() {
+        DynamicSelectorNode result = new DynamicSelectorNode();
+        for (BehaviorNode child : children) {
+            result.children.add(child.deepCopy());
+        }
+        return result;
+    }
+
+    @Override
+    public void construct(Actor actor) {
         constructed = new BitSet(children.size());
     }
 
     @Override
-    public BehaviorState execute() {
+    public BehaviorState execute(Actor actor) {
         BehaviorState result;
         for (int i = 0; i < children.size(); i++) {
             BehaviorNode child = children.get(i);
             if (!constructed.get(i)) {
-                child.construct();
+                child.construct(actor);
                 constructed.set(i);
             }
-            result = child.execute();
+            result = child.execute(actor);
             if (result == BehaviorState.RUNNING) {
                 return BehaviorState.RUNNING;
             }
-            child.destruct();
+            child.destruct(actor);
             constructed.clear(i);
             if (result == BehaviorState.SUCCESS) {
                 return BehaviorState.SUCCESS;
@@ -45,7 +54,7 @@ public class DynamicSelectorNode extends CompositeNode {
     }
 
     @Override
-    public void destruct() {
+    public void destruct(Actor actor) {
     }
 
     @Override

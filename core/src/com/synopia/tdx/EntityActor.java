@@ -10,11 +10,13 @@ import java.util.Map;
  * Created by synopia on 11.01.2015.
  */
 public class EntityActor implements Actor<Entity> {
+    private final World world;
     private final Map<Integer, Object> dataMap = Maps.newHashMap();
     private final Entity entity;
     private float delta;
 
-    public EntityActor(Entity entity) {
+    public EntityActor(World world, Entity entity) {
+        this.world = world;
         this.entity = entity;
     }
 
@@ -36,5 +38,9 @@ public class EntityActor implements Actor<Entity> {
 
     public void setDelta(float delta) {
         this.delta = delta;
+    }
+
+    public World getWorld() {
+        return world;
     }
 }

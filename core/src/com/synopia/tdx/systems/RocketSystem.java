@@ -66,13 +66,13 @@ public class RocketSystem extends IteratingSystem {
             if (movement.targetReached) {
                 ParticleComponent particle = pm.get(entity);
                 if (particle == null) {
-                    logger.info("Rocket hit {}", movement.target);
+                    logger.debug("Rocket hit {}", movement.target);
                     particle = new ParticleComponent();
                     particle.name = rocket.particle.name;
                     entity.add(particle);
                     Entity effectEntity = new Entity();
                     engine.addEntity(effectEntity);
-                    effectEntity.add(rocket.effect.create());
+                    effectEntity.add(rocket.effect);
                     effectEntity.add(tarM.get(entity));
                     effectEntity.add(transM.get(entity));
                 } else if (particle.isCompleted) {

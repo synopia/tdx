@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +35,7 @@ import java.util.Set;
  * Created by synopia on 06.01.2015.
  */
 public class GsonWorld {
-    private Engine engine;
+    protected Engine engine;
     private GsonBuilder gsonBuilder;
     private Gson gson;
 
@@ -140,11 +141,18 @@ public class GsonWorld {
     }
 
     public void registerSystems() {
+        registerSystems(Arrays.asList());
+    }
+
+    public void registerSystems(List<Class<? extends EntitySystem>> except) {
         List<EntitySystem> systems = Lists.newArrayList();
         Set<Class<? extends EntitySystem>> types = reflections.getSubTypesOf(EntitySystem.class);
         for (Class<? extends EntitySystem> system : types) {
             int modifiers = system.getModifiers();
             if (!Modifier.isAbstract(modifiers)) {
+                if (except.contains(system)) {
+                    continue;
+                }
                 try {
                     EntitySystem entitySystem = system.newInstance();
                     injector.add(system, entitySystem);

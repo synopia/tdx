@@ -69,43 +69,44 @@ public class PlugSystem extends IteratingSystem {
         if (map == null) {
             Entity mapEntity = engine.getEntitiesFor(Family.getFor(MapComponent.class)).get(0);
             map = mm.get(mapEntity);
-            mouseSystem.getBlockPositionChanged().add((signal, pos) -> {
-                if (activeEntity != null) {
-                    TransformComponent transform;
-                    if (!tm.has(activeEntity)) {
-                        transform = new TransformComponent();
-                        activeEntity.add(transform);
-                    } else {
-                        transform = tm.get(activeEntity);
-                    }
-                    transform.pos.set(pos.getX(), pos.getY(), -1);
+            if (mouseSystem != null) {
+                mouseSystem.getBlockPositionChanged().add((signal, pos) -> {
+                    if (activeEntity != null) {
+                        TransformComponent transform;
+                        if (!tm.has(activeEntity)) {
+                            transform = new TransformComponent();
+                            activeEntity.add(transform);
+                        } else {
+                            transform = tm.get(activeEntity);
+                        }
+                        transform.pos.set(pos.getX(), pos.getY(), -1);
 
-                    PlugComponent plugComponent = pm.get(activeEntity);
-                    int sx = (int) plugComponent.size.x;
-                    int sy = (int) plugComponent.size.y;
+                        PlugComponent plugComponent = pm.get(activeEntity);
+                        int sx = (int) plugComponent.size.x;
+                        int sy = (int) plugComponent.size.y;
 
-                    plugComponent.plugable = isPlugable(pos, sx, sy);
-                }
-            });
-            mouseSystem.getBlockPositionClicked().add((signal, pos) -> {
-                if (activeEntity != null) {
-                    PlugComponent plugComponent = pm.get(activeEntity);
-                    int sx = (int) plugComponent.size.x;
-                    int sy = (int) plugComponent.size.y;
-                    if (plug(mouseSystem.getMouseBlock(), sx, sy, activeEntity)) {
-                        logger.info("Entity {} placed at {},{}", activeEntity, sx, sy);
-                        activeEntity.remove(PlugComponent.class);
-                        activeEntity = world.createEntity(nm.get(activeEntity).internalName);
-                        entityPlaced.dispatch(pos);
-                        mouseSystem.getBlockPositionChanged().dispatch(pos);
+                        plugComponent.plugable = isPlugable(pos, sx, sy);
                     }
-                }
-            });
+                });
+                mouseSystem.getBlockPositionClicked().add((signal, pos) -> {
+                    if (activeEntity != null) {
+                        PlugComponent plugComponent = pm.get(activeEntity);
+                        int sx = (int) plugComponent.size.x;
+                        int sy = (int) plugComponent.size.y;
+                        if (plug(pos, sx, sy, activeEntity)) {
+                            activeEntity.remove(PlugComponent.class);
+                            activeEntity = world.createEntity(nm.get(activeEntity).internalName);
+                            entityPlaced.dispatch(pos);
+                            mouseSystem.getBlockPositionChanged().dispatch(pos);
+                        }
+                    }
+                });
+            }
         }
         plugs.clear();
         super.update(deltaTime);
 
-        if (!plugs.equals(lastPlugs)) {
+        if (!plugs.equals(lastPlugs) && skin != null) {
             palette.clear();
             for (Entity plug : plugs) {
                 TextButton button = new TextButton(nm.get(plug).internalName, skin);
@@ -128,7 +129,7 @@ public class PlugSystem extends IteratingSystem {
         plugs.add(entity);
     }
 
-    private boolean plug(BlockPosition pos, int sx, int sy, Entity plug) {
+    public boolean plug(BlockPosition pos, int sx, int sy, Entity plug) {
         if (isPlugable(pos, sx, sy)) {
             for (int y = 0; y < sy; y++) {
                 for (int x = 0; x < sx; x++) {
@@ -137,6 +138,8 @@ public class PlugSystem extends IteratingSystem {
                 }
             }
             pm.get(plug).plugged = true;
+            logger.info("Entity {} placed at {},{}", plug, pos.getX(), pos.getY());
+
             return true;
         }
         return false;
@@ -167,6 +170,9 @@ public class PlugSystem extends IteratingSystem {
     }
 
     public void setActiveEntity(Entity activeEntity) {
+        if (this.activeEntity != null) {
+            engine.removeEntity(this.activeEntity);
+        }
         this.activeEntity = activeEntity;
     }
 
@@ -176,6 +182,10 @@ public class PlugSystem extends IteratingSystem {
 
     public HorizontalGroup getPalette() {
         return palette;
+    }
+
+    public Entity getActiveEntity() {
+        return activeEntity;
     }
 }
 

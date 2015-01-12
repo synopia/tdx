@@ -12,18 +12,28 @@ import static org.objectweb.asm.commons.GeneratorAdapter.NE;
  * Created by synopia on 11.01.2015.
  */
 public class ParallelNode extends CompositeNode {
-
     @Override
-    public void construct() {
-        children.forEach(BehaviorNode::construct);
+    public BehaviorNode deepCopy() {
+        ParallelNode result = new ParallelNode();
+        for (BehaviorNode child : children) {
+            result.children.add(child.deepCopy());
+        }
+        return result;
     }
 
     @Override
-    public BehaviorState execute() {
+    public void construct(Actor actor) {
+        for (BehaviorNode child : children) {
+            child.construct(actor);
+        }
+    }
+
+    @Override
+    public BehaviorState execute(Actor actor) {
         int successCounter = 0;
         for (int i = 0; i < children.size(); i++) {
             BehaviorNode child = children.get(i);
-            BehaviorState result = child.execute();
+            BehaviorState result = child.execute(actor);
             if (result == BehaviorState.FAILURE) {
                 return BehaviorState.FAILURE;
             }
@@ -35,8 +45,10 @@ public class ParallelNode extends CompositeNode {
     }
 
     @Override
-    public void destruct() {
-        children.forEach(BehaviorNode::destruct);
+    public void destruct(Actor actor) {
+        for (BehaviorNode child : children) {
+            child.destruct(actor);
+        }
     }
 
     @Override

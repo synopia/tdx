@@ -45,6 +45,7 @@
         "maxSpeed" : 35,
         "accel" : 35,
         "effect" : {
+          "test": {"x": "w"},
           "start" : {
             "parallel": [
               {
@@ -166,11 +167,267 @@
         "accel" : 30,
         "effect" : {
           "start": {
-            "direct": {
-              "baseDamage": 160,
-              "diceDamage": "2D45",
-              "damageType": "spells"
-            }
+            "sequence": [
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              },
+              {
+                "delay": {
+                  "duration": 1
+                }
+              },
+              {
+                "parallel": [
+                  {
+                    "direct": {
+                      "baseDamage": 10,
+                      "diceDamage": "2D5",
+                      "damageType": "pierce"
+                    }
+                  },
+                  {
+                    "slowdown": {"factor": 0.9}
+                  },
+                  {
+                    "delay": {"duration": 4}
+                  }
+                ]
+              }
+            ]
           }
         },
         "particle":{

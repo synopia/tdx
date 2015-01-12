@@ -1,9 +1,11 @@
 package com.synopia.tdx;
 
+import java.io.Serializable;
+
 /**
  * Created by synopia on 07.01.2015.
  */
-public class BlockPosition {
+public class BlockPosition implements Serializable {
     private final int x;
     private final int y;
 

@@ -8,9 +8,9 @@
         ["D", "d", "e", "f", "g", "G"]
       ],
       "unit" : "satyr",
-      "count": 1,
+      "count": 600,
       "delay" : 2,
-      "duration" : 5
+      "duration": 15
     }
   }
 }

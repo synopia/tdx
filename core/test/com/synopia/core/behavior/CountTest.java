@@ -29,21 +29,21 @@ public class CountTest {
         }
 
         @Override
-        public BehaviorState execute() {
+        public BehaviorState execute(Actor actor) {
             executeCalled.add(id);
-            return super.execute();
+            return super.execute(actor);
         }
 
         @Override
-        public void construct() {
-            super.construct();
+        public void construct(Actor actor) {
+            super.construct(actor);
             constructCalled.add(id);
         }
 
         @Override
-        public void destruct() {
+        public void destruct(Actor actor) {
             destructCalled.add(id);
-            super.destruct();
+            super.destruct(actor);
         }
     }
 
@@ -80,15 +80,15 @@ public class CountTest {
         asm.generateMethod(node);
         CompiledBehaviorTree cbt = asm.createInstance();
 
-        node.construct();
+        node.construct(null);
         List<BehaviorState> actualStates = Lists.newArrayList();
         List<BehaviorState> cbtStates = Lists.newArrayList();
         for (int i = 0; i < result.size(); i++) {
-            BehaviorState state = node.execute();
+            BehaviorState state = node.execute(null);
             actualStates.add(state);
             cbtStates.add(step ? cbt.step() : BehaviorState.values()[cbt.run(0)]);
         }
-        node.destruct();
+        node.destruct(null);
 
         Assert.assertEquals(result, actualStates);
         Assert.assertEquals(result, cbtStates);

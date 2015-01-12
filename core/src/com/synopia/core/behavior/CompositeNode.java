@@ -80,17 +80,17 @@ public abstract class CompositeNode implements BehaviorNode {
     }
 
     @Override
-    public void construct() {
+    public void construct(Actor actor) {
 
     }
 
     @Override
-    public BehaviorState execute() {
+    public BehaviorState execute(Actor actor) {
         return null;
     }
 
     @Override
-    public void destruct() {
+    public void destruct(Actor actor) {
 
     }
 }

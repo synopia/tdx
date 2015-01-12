@@ -8,6 +8,10 @@ import org.objectweb.asm.Type;
 import org.objectweb.asm.commons.GeneratorAdapter;
 import org.objectweb.asm.commons.Method;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * Created by synopia on 11.01.2015.
  */
@@ -16,6 +20,8 @@ public class Assembler {
     private final String className;
     private final ClassGenerator generator;
     private final ClassWriter classWriter;
+    private MyClassLoader loader;
+    private Class type;
 
     public Assembler(String className) {
         this.className = className;
@@ -34,8 +40,10 @@ public class Assembler {
     }
 
     public CompiledBehaviorTree createInstance() {
-        MyClassLoader loader = new MyClassLoader(this.getClass().getClassLoader());
-        Class type = loader.defineClass(className, getBytecode());
+        if (loader == null) {
+            loader = new MyClassLoader(this.getClass().getClassLoader());
+            type = loader.defineClass(className, getBytecode());
+        }
         try {
             return (CompiledBehaviorTree) type.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {

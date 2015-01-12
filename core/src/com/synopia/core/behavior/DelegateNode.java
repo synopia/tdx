@@ -14,6 +14,11 @@ public class DelegateNode implements BehaviorNode {
     }
 
     @Override
+    public BehaviorNode deepCopy() {
+        return new DelegateNode(delegate.deepCopy());
+    }
+
+    @Override
     public void insertChild(int index, BehaviorNode child) {
         delegate.insertChild(index, child);
     }
@@ -69,18 +74,18 @@ public class DelegateNode implements BehaviorNode {
     }
 
     @Override
-    public void construct() {
-        delegate.construct();
+    public void construct(Actor actor) {
+        delegate.construct(actor);
     }
 
     @Override
-    public BehaviorState execute() {
-        return delegate.execute();
+    public BehaviorState execute(Actor actor) {
+        return delegate.execute(actor);
     }
 
     @Override
-    public void destruct() {
-        delegate.construct();
+    public void destruct(Actor actor) {
+        delegate.construct(actor);
     }
 
     @Override

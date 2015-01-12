@@ -7,31 +7,31 @@ public class DecoratorNode extends ActionNode {
     private BehaviorNode child;
 
     @Override
-    public void construct() {
+    public void construct(Actor actor) {
         if (action != null) {
             action.construct(null);
         }
-        child.construct();
+        child.construct(actor);
     }
 
     @Override
-    public BehaviorState execute() {
+    public BehaviorState execute(Actor actor) {
         if (action != null) {
-            if (action.prune(null)) {
-                return action.modify(null, BehaviorState.UNDEFINED);
+            if (action.prune(actor)) {
+                return action.modify(actor, BehaviorState.UNDEFINED);
             }
-            return action.modify(null, child.execute());
+            return action.modify(actor, child.execute(actor));
         }
 
-        return child.execute();
+        return child.execute(actor);
     }
 
     @Override
-    public void destruct() {
+    public void destruct(Actor actor) {
         if (action != null) {
-            action.destruct(null);
+            action.destruct(actor);
         }
-        child.destruct();
+        child.destruct(actor);
     }
 
     @Override

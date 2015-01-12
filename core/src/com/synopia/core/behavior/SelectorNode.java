@@ -17,40 +17,50 @@ public class SelectorNode extends CompositeNode {
     private String reentry;
 
     @Override
-    public void construct() {
-        iterator = children.iterator();
-        nextChild();
+    public BehaviorNode deepCopy() {
+        SelectorNode result = new SelectorNode();
+        for (BehaviorNode child : children) {
+            result.children.add(child.deepCopy());
+        }
+        return result;
+
     }
 
     @Override
-    public BehaviorState execute() {
+    public void construct(Actor actor) {
+        iterator = children.iterator();
+        nextChild(actor);
+    }
+
+    @Override
+    public BehaviorState execute(Actor actor) {
         BehaviorState result;
         while (current != null) {
-            result = current.execute();
+            result = current.execute(actor);
             if (result == BehaviorState.RUNNING) {
                 return BehaviorState.RUNNING;
             }
-            current.destruct();
+            current.destruct(actor);
             if (result == BehaviorState.SUCCESS) {
                 return BehaviorState.SUCCESS;
             } else {
-                nextChild();
+                nextChild(actor);
             }
         }
         return BehaviorState.FAILURE;
     }
 
-    private void nextChild() {
+    private void nextChild(Actor actor) {
         if (iterator.hasNext()) {
             current = iterator.next();
-            current.construct();
+            current.construct(actor);
         } else {
             current = null;
         }
     }
 
     @Override
-    public void destruct() {
+    public void destruct(Actor actor) {
     }
 
     @Override

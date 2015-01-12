@@ -21,27 +21,31 @@ public class ActionNode implements BehaviorNode {
     }
 
     @Override
-    public void construct() {
+    public void construct(Actor actor) {
         if (action != null) {
-            action.construct(null);
+            action.construct(actor);
         }
     }
 
     @Override
-    public BehaviorState execute() {
+    public BehaviorState execute(Actor actor) {
         if (action != null) {
-            return action.modify(null, BehaviorState.UNDEFINED);
+            return action.modify(actor, BehaviorState.UNDEFINED);
         }
         return BehaviorState.UNDEFINED;
     }
 
     @Override
-    public void destruct() {
+    public void destruct(Actor actor) {
         if (action != null) {
-            action.destruct(null);
+            action.destruct(actor);
         }
     }
 
+    @Override
+    public BehaviorNode deepCopy() {
+        return new ActionNode(action);
+    }
 
     @Override
     public void insertChild(int index, BehaviorNode child) {

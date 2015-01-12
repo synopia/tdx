@@ -17,6 +17,8 @@ import java.util.Map;
  */
 public class BehaviorTreeBuilder implements JsonDeserializer<BehaviorNode> {
     private Map<String, Class<? extends Action>> actions = Maps.newHashMap();
+    private Map<String, BehaviorNode> nodeCache = Maps.newHashMap();
+
     private int nextId = 1;
 
     public void registerAction(String name, Class<? extends Action> action) {
@@ -26,12 +28,18 @@ public class BehaviorTreeBuilder implements JsonDeserializer<BehaviorNode> {
     @Override
     public BehaviorNode deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         BehaviorNode node;
-        if (json.isJsonPrimitive()) {
-            node = getLeafNode(json);
-        } else {
-            node = getCompositeNode(json, context);
+        String key = json.toString();
+        node = nodeCache.get(key);
+        if (node == null) {
+            if (json.isJsonPrimitive()) {
+                node = getLeafNode(json);
+            } else {
+                node = getCompositeNode(json, context);
+            }
+            node = createNode(node);
+            nodeCache.put(key, node);
         }
-        return createNode(node);
+        return node;
     }
 
     public BehaviorNode createNode(BehaviorNode node) {

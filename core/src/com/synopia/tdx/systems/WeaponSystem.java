@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Map;
 
 /**
  * Created by synopia on 07.01.2015.
@@ -54,11 +55,11 @@ public class WeaponSystem extends IteratingSystem {
         if (weapon.target == null) {
             weapon.target = findTargetNearest(weapon, transform.pos);
             if (weapon.target != null) {
-                logger.info("{} found target {}", entity, weapon.target);
+                logger.debug("{} found target {}", entity, weapon.target);
             }
         }
         if (weapon.target != null && weapon.elapsedTime >= weapon.cooldown) {
-            logger.info("{} fires to {}", entity, weapon.target);
+            logger.debug("{} fires to {}", entity, weapon.target);
             weapon.elapsedTime -= weapon.cooldown;
             if (weapon.elapsedTime > weapon.cooldown) {
                 weapon.elapsedTime = 0;
@@ -88,15 +89,14 @@ public class WeaponSystem extends IteratingSystem {
     }
 
     private Entity findTargetNearest(WeaponComponent weapon, Vector3 pos) {
-        float nearestDist = weapon.range * weapon.range;
+        Map<Entity, Float> entities = world.findEntities(pos, weapon.range);
+        float nearestDist = weapon.range;
         Entity nearest = null;
-        ImmutableArray<Entity> targets = engine.getEntitiesFor(Family.getFor(TransformComponent.class, HealthComponent.class));
-        for (int i = 0; i < targets.size(); i++) {
-            Entity entity = targets.get(i);
-            Float dist = isValidTarget(weapon, entity, pos);
-            if (dist != null && dist < nearestDist) {
+        for (Map.Entry<Entity, Float> entry : entities.entrySet()) {
+            float dist = entry.getValue();
+            if (dist < nearestDist && hm.get(entry.getKey()).hitPoints > 0) {
                 nearestDist = dist;
-                nearest = entity;
+                nearest = entry.getKey();
             }
         }
         return nearest;

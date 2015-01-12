@@ -29,6 +29,8 @@ public class MovementSystem extends IteratingSystem {
     private ComponentMapper<TransformComponent> tm;
     private Vector2 accel;
     private Vector2 pos;
+    private final Vector2 temp = new Vector2();
+    private final Vector2 dist = new Vector2();
     @Inject
     private MouseSystem mouseSystem;
     @Inject
@@ -95,8 +97,7 @@ public class MovementSystem extends IteratingSystem {
     }
 
     private void processDirect(MovementComponent movement, TransformComponent transform, float targetX, float targetY, float deltaTime) {
-
-        Vector2 dist = new Vector2(targetX - transform.pos.x, targetY - transform.pos.y);
+        dist.set(targetX - transform.pos.x, targetY - transform.pos.y);
         float len = dist.len();
         if (len < REACHED_DIST) {
             movement.targetReached = true;
@@ -112,7 +113,8 @@ public class MovementSystem extends IteratingSystem {
 
             if (a > movement.accel) {
                 // s = a/2 * t*t + v*t -> a = 2*(s-v*t)/t/t;
-                accel.set(dist).sub(movement.speed.cpy().scl(timeToTarget)).scl(2.f / timeToTarget / timeToTarget);
+                temp.set(movement.speed).scl(timeToTarget);
+                accel.set(dist).sub(temp).scl(2.f / timeToTarget / timeToTarget);
                 movement.breaking = true;
             } else {
                 accel.set(dist);

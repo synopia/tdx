@@ -16,9 +16,11 @@ public interface BehaviorNode extends AssemblingBehaviorNode {
 
     int getMaxChildren();
 
-    void construct();
+    void construct(Actor actor);
 
-    BehaviorState execute();
+    BehaviorState execute(Actor actor);
 
-    void destruct();
+    void destruct(Actor actor);
+
+    BehaviorNode deepCopy();
 }

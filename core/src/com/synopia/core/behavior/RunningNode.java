@@ -7,17 +7,22 @@ import com.synopia.core.behavior.compiler.MethodGenerator;
  */
 public class RunningNode extends LeafNode {
     @Override
-    public void construct() {
+    public BehaviorNode deepCopy() {
+        return new RunningNode();
+    }
+
+    @Override
+    public void construct(Actor actor) {
 
     }
 
     @Override
-    public BehaviorState execute() {
+    public BehaviorState execute(Actor actor) {
         return BehaviorState.RUNNING;
     }
 
     @Override
-    public void destruct() {
+    public void destruct(Actor actor) {
 
     }
 
